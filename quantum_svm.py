@@ -16,10 +16,11 @@ from sklearn.metrics import f1_score, balanced_accuracy_score
 from src.aux_output import detailed_accuracy, performance
 
 # Dimension of the bipartite system
-dim = '3x3'
+dim = 'toy'
+cat_size = 10
 
 # Number of Principal components to reduce the dataset's dimensionality
-n_pca=32
+n_pca=20
 
 # pennylane works with doubles and tensorflow works with floats.
 # We ask tensorflow to work with doubles
@@ -34,13 +35,13 @@ np.random.seed(42)
 # Reduce the dimensionality of the dataset with Principal Component Analysis
 ppt_ratio=['025', '05', '075', '1']
 training_data=[]
+test_data=[]
+x_test = np.genfromtxt('./dataset/'+dim+'/test/x_test.csv', delimiter=",",dtype=None)
 pca = PCA(n_components = n_pca)
 for r in ppt_ratio:
     xs_train = pca.fit_transform(np.genfromtxt('./dataset/'+dim+'/train/x_'+r+'.csv', delimiter=",",dtype=None))
     training_data.append(xs_train)
-
-x_test = np.genfromtxt('./dataset/'+dim+'/test/x_test.csv', delimiter=",",dtype=None)
-xs_test = pca.transform(x_test)
+    test_data.append(pca.transform(x_test))
 
 y_train = np.genfromtxt('./dataset/'+dim+'/train/y_train.csv', delimiter=",",dtype=None)
 y_test = np.genfromtxt('./dataset/'+dim+'/test/y_test.csv', delimiter=",",dtype=None)
@@ -50,7 +51,7 @@ y_test = np.genfromtxt('./dataset/'+dim+'/test/y_test.csv', delimiter=",",dtype=
 # Number of qubits of the system
 nqubits = 5
 # We define a device
-dev = qml.device("lightning.qubit", wires = nqubits)
+dev = qml.device("default.qubit", wires = nqubits)
 
 # We define de circuit of our kernel. We use AmplitudeEmbedding which returns an
 # operation equivalent to amplitude encoding of the first argument
@@ -79,7 +80,7 @@ ppt_scores=[]
 nppt_scores=[]
 
 # Training of the SVM, compute predictions and metrics for each PPT ratio training set 
-for xs_train in training_data:
+for xs_train, xs_test in zip(training_data, test_data):
     svm = SVC(kernel = qkernel).fit(xs_train, y_train)
     y_train_pred=svm.predict(xs_train)
     y_test_pred=svm.predict(xs_test)
@@ -90,7 +91,7 @@ for xs_train in training_data:
     prec_scores.append(precision_score(y_test, y_test_pred))
     rec_scores.append(recall_score(y_test, y_test_pred))
     bacc_scores.append(balanced_accuracy_score(y_test, y_test_pred))
-    acc_per_type=detailed_accuracy(y_test_pred, 1000)
+    acc_per_type=detailed_accuracy(y_test_pred, cat_size)
     sep_scores.append(acc_per_type['SEP_acc'])
     ppt_scores.append(acc_per_type['PPT_acc'])
     nppt_scores.append(acc_per_type['NPPT_acc'])
@@ -104,7 +105,7 @@ d={'PPT_ratio': ppt_ratio, 'acc_train': tr_acc, 'accuracy': acc_scores, 'f1': f1
 df = pd.DataFrame(data=d)
 
 # Save the dataframe to a CSV file
-df.to_csv('./results/qsvm_results.csv', index=False)
+df.to_csv('./results/'+dim+'/qsvm_results.csv', index=False)
 
 
 # tr_acc=accuracy_score(y_train_pred, y_train)

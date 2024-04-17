@@ -21,7 +21,7 @@ def detailed_accuracy(y_test_pred, size):
   
   return {'SEP_acc': score_sep, 'PPT_acc': score_ppt, 'NPPT_acc': score_nppt}
 
-def performance(y_train_pred, y_train, y_test_pred, y_test):
+def performance(y_train_pred, y_train, y_test_pred, y_test, size):
   tr_acc = accuracy_score(y_train_pred, y_train)
   test_acc = accuracy_score(y_test_pred, y_test)
 
@@ -36,7 +36,7 @@ def performance(y_train_pred, y_train, y_test_pred, y_test):
 
   # Test accuracy per type
   print("\nTest accuracy broken down per type")
-  detailed_accuracy(y_test_pred, 100)
+  detailed_accuracy(y_test_pred, size)
 
   print("\n")
   # Train confusion matrix
