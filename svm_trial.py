@@ -47,22 +47,22 @@ def performance(y_train_pred, y_train, y_test_pred, y_test, size):
   detailed_accuracy(y_test_pred, size)
 
   print("\n")
-  # Train confusion matrix
-  cm = confusion_matrix(y_train, y_train_pred)
-  cm_display = ConfusionMatrixDisplay(cm).plot()
-  cm_display.ax_.set_title("Train confusion matrix")
+  # # Train confusion matrix
+  # cm = confusion_matrix(y_train, y_train_pred)
+  # cm_display = ConfusionMatrixDisplay(cm).plot()
+  # cm_display.ax_.set_title("Train confusion matrix")
 
-  # Test confusion matrix
-  cm = confusion_matrix(y_test, y_test_pred)
-  cm_display = ConfusionMatrixDisplay(cm).plot()
-  cm_display.ax_.set_title("Test confusion matrix")
+  # # Test confusion matrix
+  # cm = confusion_matrix(y_test, y_test_pred)
+  # cm_display = ConfusionMatrixDisplay(cm).plot()
+  # cm_display.ax_.set_title("Test confusion matrix")
 
 
 # Dimension of the bipartite system
-dim = 'toy'
+dim = '3x3'
 
 # Number of Principal components to reduce the dataset's dimensionality
-n_pca=20
+n_pca=32
 
 # pennylane works with doubles and tensorflow works with floats.
 # We ask tensorflow to work with doubles
@@ -80,6 +80,7 @@ ppt_ratio='05'
 
 x_train = np.genfromtxt('./dataset/'+dim+'/train/x_'+ppt_ratio+'.csv', delimiter=",",dtype=None)
 print(x_train.shape)
+print(x_train.dtype)
 
 pca = PCA(n_components = n_pca)
 xs_train = pca.fit_transform(x_train)
@@ -96,7 +97,7 @@ y_test = np.genfromtxt('./dataset/'+dim+'/test/y_test.csv', delimiter=",",dtype=
 # Number of qubits of the system
 nqubits = 5
 # We define a device
-dev = qml.device("default.qubit", wires = nqubits)
+dev = qml.device("lightning.qubit", wires = nqubits)
 
 # We define de circuit of our kernel. We use AmplitudeEmbedding which returns an
 # operation equivalent to amplitude encoding of the first argument
@@ -116,7 +117,7 @@ svm = SVC(kernel = qkernel).fit(xs_train, y_train)
 y_train_pred=svm.predict(xs_train)
 y_test_pred=svm.predict(xs_test)
 
-performance(y_train_pred, y_train, y_test_pred, y_test,10)
+performance(y_train_pred, y_train, y_test_pred, y_test,1000)
 
 # tr_acc=accuracy_score(y_train_pred, y_train)
 # print("Train accuracy: ", tr_acc)
