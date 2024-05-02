@@ -18,9 +18,9 @@ def detailed_accuracy(y_test_pred, size):
   score_ppt= accuracy_score(y_ppt_pred, np.full(test_size,1))
   score_nppt= accuracy_score(y_nppt_pred, np.full(test_size,1))
 
-#   print("SEP accuracy: ", score_sep)
-#   print("PPT accuracy: ", score_ppt)
-#   print("NPPT accuracy: ", score_nppt)
+  print("SEP accuracy: ", score_sep)
+  print("PPT accuracy: ", score_ppt)
+  print("NPPT accuracy: ", score_nppt)
   
   return {'SEP_acc': score_sep, 'PPT_acc': score_ppt, 'NPPT_acc': score_nppt}
   
@@ -62,7 +62,8 @@ y_test = np.genfromtxt('./dataset/'+dim+'/test/y_test.csv', delimiter=",",dtype=
 model_type = SVC()
 model_params = [
     {'kernel': ['poly'], 'degree': np.arange(2, 7), 'gamma': np.logspace(-5, 5, num=5), 'C': np.logspace(-5, 5, num=5)},
-    {'kernel': ['rbf'], 'gamma': np.logspace(-5, 5, num=5), 'C': np.logspace(-5, 5, num=5)}]
+    {'kernel': ['rbf'], 'gamma': np.logspace(-5, 5, num=5), 'C': np.logspace(-5, 5, num=5)},
+    {'kernel': ['sigmoid'], 'gamma': np.logspace(-5, 5, num=5), 'C': np.logspace(-5, 5, num=5)}]
 
 
 n_models = 1
