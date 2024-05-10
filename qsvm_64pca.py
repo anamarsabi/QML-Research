@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import time 
 import fcntl
 import filelock
+from argparse import ArgumentParser
 
 from sklearn.decomposition import PCA
 from sklearn.svm import SVC
@@ -81,6 +82,10 @@ def performance(y_train_pred, y_train, y_test_pred, y_test, size):
 
   print("\n")
 
+parser = ArgumentParser()
+parser.add_argument('size')
+args = parser.parse_args()
+
 # Dimension of the bipartite system
 dim = '3x3'
 cat_size = 200
@@ -102,7 +107,7 @@ np.random.seed(42)
 # Reduce the dimensionality of the dataset with Principal Component Analysis
 ppt_ratio='1'
 
-size=1000
+size=args.size
 
 start= time.time()
 x_train = np.genfromtxt('./dataset/'+folder+'/train/x_n_'+str(size)+'.csv', delimiter=",",dtype=None)
@@ -170,13 +175,24 @@ ppt_scores.append(acc_per_type['PPT_acc'])
 nppt_scores.append(acc_per_type['NPPT_acc'])
 
 performance(y_train_pred, y_train, y_test_pred, y_test,cat_size)
-# Create a dictionary to sumarise metric's scores
-d={'size': size, 'PPT_ratio': ppt_ratio, 'acc_train': tr_acc, 'accuracy': acc_scores, 'f1': f1_scores,
-   'precision': prec_scores, 'recall': rec_scores, 'balanced_accuracy': bacc_scores,
-   'SEP_accuracy': sep_scores, 'PPT_accuracy': ppt_scores, 'NPPT_accuracy': nppt_scores,
-   'time': end-start}
 
-append_filelock(d, csv_file_path)
+lock = filelock.FileLock(csv_file_path+'.lock')
+print('Acquiring lock ...')
+with lock:
+  print('Lock acquired')
+  # Create a dictionary to sumarise metric's scores
+  d={'size': size, 'PPT_ratio': ppt_ratio, 'acc_train': tr_acc, 'accuracy': acc_scores, 'f1': f1_scores,
+    'precision': prec_scores, 'recall': rec_scores, 'balanced_accuracy': bacc_scores,
+    'SEP_accuracy': sep_scores, 'PPT_accuracy': ppt_scores, 'NPPT_accuracy': nppt_scores,
+    'time': end-start}
+  
+  # Create a DataFrame with the provided data
+  df = pd.DataFrame(data=d)
+  with open(csv_file_path, 'a') as csvfile:
+    # Append the DataFrame to the CSV file
+    df.to_csv(csvfile, header=False, index=False)
+
+# append_filelock(d, csv_file_path)
 
 
 
