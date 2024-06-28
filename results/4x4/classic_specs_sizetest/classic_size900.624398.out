@@ -1,0 +1,24 @@
+---- Training model (0)...
+training results :
+{'C': 9.999999999999999e-06, 'degree': 4, 'gamma': 316.2277660168379, 'kernel': 'poly'}
+0.6922222222222223
+Training time:  87.30090928077698
+---- Test Model  0
+Prediction time:  0.04747796058654785
+SEP accuracy:  0.82
+PPT accuracy:  0.64
+NPPT accuracy:  0.645
+Train accuracy:  1.0
+Train F-1 score:  1.0
+
+Test accuracy:  0.7016666666666667
+Test F-1 score:  0.7417027417027416
+
+Test accuracy broken down per type
+SEP accuracy:  0.82
+PPT accuracy:  0.64
+NPPT accuracy:  0.645
+
+
+Acquiring lock ...
+Lock acquired

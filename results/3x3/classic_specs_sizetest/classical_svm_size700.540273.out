@@ -1,0 +1,110 @@
+---- Training model (0)...
+training results :
+{'C': 316.22776601683796, 'gamma': 1.0, 'kernel': 'rbf'}
+0.7871428571428571
+Training time:  21.912229537963867
+---- Training model (1)...
+training results :
+{'C': 316.22776601683796, 'gamma': 1.0, 'kernel': 'rbf'}
+0.7871428571428571
+Training time:  23.591909408569336
+---- Training model (2)...
+training results :
+{'C': 316.22776601683796, 'gamma': 1.0, 'kernel': 'rbf'}
+0.7828571428571429
+Training time:  23.084547996520996
+---- Training model (3)...
+training results :
+{'C': 316.22776601683796, 'gamma': 1.0, 'kernel': 'rbf'}
+0.7842857142857143
+Training time:  24.612035751342773
+---- Training model (4)...
+training results :
+{'C': 316.22776601683796, 'gamma': 1.0, 'kernel': 'rbf'}
+0.7742857142857142
+Training time:  23.979267597198486
+---- Test Model  0
+Prediction time:  0.045922279357910156
+SEP accuracy:  0.84
+PPT accuracy:  0.76
+NPPT accuracy:  0.825
+Train accuracy:  1.0
+Train F-1 score:  1.0
+
+Test accuracy:  0.8083333333333333
+Test F-1 score:  0.8464619492656875
+
+Test accuracy broken down per type
+SEP accuracy:  0.84
+PPT accuracy:  0.76
+NPPT accuracy:  0.825
+
+
+---- Test Model  1
+Prediction time:  0.04945111274719238
+SEP accuracy:  0.84
+PPT accuracy:  0.76
+NPPT accuracy:  0.825
+Train accuracy:  1.0
+Train F-1 score:  1.0
+
+Test accuracy:  0.8083333333333333
+Test F-1 score:  0.8464619492656875
+
+Test accuracy broken down per type
+SEP accuracy:  0.84
+PPT accuracy:  0.76
+NPPT accuracy:  0.825
+
+
+---- Test Model  2
+Prediction time:  0.04925370216369629
+SEP accuracy:  0.84
+PPT accuracy:  0.76
+NPPT accuracy:  0.825
+Train accuracy:  1.0
+Train F-1 score:  1.0
+
+Test accuracy:  0.8083333333333333
+Test F-1 score:  0.8464619492656875
+
+Test accuracy broken down per type
+SEP accuracy:  0.84
+PPT accuracy:  0.76
+NPPT accuracy:  0.825
+
+
+---- Test Model  3
+Prediction time:  0.0471348762512207
+SEP accuracy:  0.84
+PPT accuracy:  0.76
+NPPT accuracy:  0.825
+Train accuracy:  1.0
+Train F-1 score:  1.0
+
+Test accuracy:  0.8083333333333333
+Test F-1 score:  0.8464619492656875
+
+Test accuracy broken down per type
+SEP accuracy:  0.84
+PPT accuracy:  0.76
+NPPT accuracy:  0.825
+
+
+---- Test Model  4
+Prediction time:  0.04931831359863281
+SEP accuracy:  0.84
+PPT accuracy:  0.76
+NPPT accuracy:  0.825
+Train accuracy:  1.0
+Train F-1 score:  1.0
+
+Test accuracy:  0.8083333333333333
+Test F-1 score:  0.8464619492656875
+
+Test accuracy broken down per type
+SEP accuracy:  0.84
+PPT accuracy:  0.76
+NPPT accuracy:  0.825
+
+
