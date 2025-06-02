@@ -1,4 +1,4 @@
-# QML-Research
+# Entanglement detection with QML
 
 Repository for QML research on the quantum entanglement detection problem.
 
